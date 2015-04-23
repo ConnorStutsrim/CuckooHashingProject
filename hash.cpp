@@ -1,6 +1,6 @@
 #include "hash.h"
 
-#include <vector>
+#include <iostream>
 
 using namespace std;
 
@@ -70,6 +70,7 @@ void hash::insert(int key){
 	}
 	if(!placed){
 		//numMoves == 50 and we need to rehash table
+		//need to resize -> could premeditatingly do this
 	}
 }
 	
@@ -123,4 +124,13 @@ bool hash::search(int key){
 			return true;
 		}
 	}	return false;
+}
+
+void hash::print(){
+	for(int i = 0; i < table.size(); i++){
+		for(int j = 0; j < table.size(); j++){
+			cout << table[i][j] << " ";
+		}
+		cout << endl;
+	}
 }

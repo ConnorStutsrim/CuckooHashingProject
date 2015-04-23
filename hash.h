@@ -11,11 +11,10 @@ public:
 
 	void insert(int key);
 	void remove(int key);
-	void search(int key);
+	bool search(int key);
 
 private:
-	vector<int> table1;
-	vector<int> table2;
+	std::vector<std::vector<int> > table1;
 };
 
 #endif /* CUCKOO_H */

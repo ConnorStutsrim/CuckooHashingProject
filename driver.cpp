@@ -1,5 +1,6 @@
 #include "hash.h"
 
+#include <cstdlib>
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -32,7 +33,7 @@ int main(int argc, char* argv[]) {
 		int size = std::stoi(tempString);
 		tableSizes.push_back(size);
 	}
-	hash cuckoo(tableSizes);
+	hash cuckoo(hashType::DIV, tableSizes);
 	std::cout << "Hash table built" << std::endl;
 
 	//Executing operations

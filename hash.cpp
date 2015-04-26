@@ -1,37 +1,56 @@
 #include "hash.h"
 
-#include <iostream>
+#include <cstdio>
 
-using namespace std;
-
-hash::hash(vector<int> tableSizes){
+hash::hash(hashType type, std::vector<int> tableSizes){
 	for(int i = 0; i < tableSizes.size(); i++){
-		vector<int> row;
+		std::vector<int> row;
 		for(int j = 0; j < tableSizes[i]; j++){
 			row.push_back(-1);
 		}
 		table.push_back(row);
 	}
+	this->type = type;
 }
 
 int hash::hashFunction0(int key){
-	return key%table[0].size();
+	if(type == hashType::DIV){
+		return key%table[0].size();
+	} else if(type == hashType::MULT){
+
+	}
 }
 	
 int hash::hashFunction1(int key){
-	return key%table[1].size();
+	if(type == hashType::DIV){
+		return key%table[1].size();
+	} else if(type == hashType::MULT){
+
+	}
 }
 
 int hash::hashFunction2(int key){
-	return key%table[2].size();
+	if(type == hashType::DIV){
+		return key%table[2].size();
+	} else if(type == hashType::MULT){
+
+	}
 }
 
 int hash::hashFunction3(int key){
-	return key%table[3].size();
+	if(type == hashType::DIV){
+		return key%table[3].size();
+	} else if(type == hashType::MULT){
+
+	}
 }
 
 int hash::hashFunction4(int key){
-	return key%table[4].size();
+	if(type == hashType::DIV){
+		return key%table[4].size();
+	} else if(type == hashType::MULT){
+
+	} 
 }
 
 void hash::insert(int key){
@@ -128,9 +147,9 @@ bool hash::search(int key){
 
 void hash::print(){
 	for(int i = 0; i < table.size(); i++){
-		for(int j = 0; j < table.size(); j++){
-			cout << table[i][j] << " ";
+		for(int j = 0; j < table[i].size(); j++){
+			printf("%5d",table[i][j]);
 		}
-		cout << endl;
+		printf("\n");
 	}
 }

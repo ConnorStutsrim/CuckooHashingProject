@@ -3,9 +3,14 @@
 
 #include <vector>
 
+enum class hashType{
+	DIV,
+	MULT,
+};
+
 class hash{
 public:
-	hash(std::vector<int> tableSizes);	
+	hash(hashType type, std::vector<int> tableSizes);	
 
 	void insert(int key);
 	void remove(int key);
@@ -20,6 +25,8 @@ private:
 	int hashFunction3(int key);
 	int hashFunction4(int key);
 	std::vector<std::vector<int> > table;
+	
+	hashType type;
 };
 
 #endif /* CUCKOO_H */

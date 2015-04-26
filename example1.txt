@@ -1,0 +1,9 @@
+4
+10
+13
+12
+18
+insert 130
+insert 260
+insert 390 
+print

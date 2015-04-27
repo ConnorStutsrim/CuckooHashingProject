@@ -90,6 +90,8 @@ void hash::insert(int key){
 	if(!placed){
 		//numMoves == 50 and we need to rehash table
 		//need to resize -> could premeditatingly do this
+		rehash(); //Resize and rehash the table
+		insert(key); //Try inserting key again
 	}
 }
 	
@@ -143,6 +145,44 @@ bool hash::search(int key){
 			return true;
 		}
 	}	return false;
+}
+
+void hash::rehash(){
+	std::vector<int> tempVals; //temporary storage for keys so none are lost
+	int origSize; //Size of original table used for resizing
+
+	for(int i = 0; i < table.size(); i++){
+		tempVals = table[i]; //Save values of original table
+		origSize = table[i].size(); //Save original table size
+		
+		if(type == hashType::DIV){ //DIV - clear/resize table and re-insert values
+
+			table[i].clear(); //clear the table for rehashing
+
+			//Double size
+			for(int n = 0; n < origSize * 2; n++){
+				table[i].push_back(-1); //Mark every cell as vacant with -1
+			}
+
+			for(int j = 0; j < tempVals.size(); j++){
+				insert(tempVals[j]); //reinsert all of the values originally in the table				
+			}
+			
+		} else if(type == hashType::MULT){
+			/* h(k) = floor(m(kA - floor(k*A)))...
+				
+				...so we have a few options for changing MULT hash function:
+			
+				a. pick a different constant A' where A'!=A and 0 < A' < 1
+				b. resize the table, thus changing the m we multiply by
+				c. both of the above
+			*/ 
+		}
+	
+	}
+
+	
+
 }
 
 void hash::print(){

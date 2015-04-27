@@ -4,8 +4,8 @@
 #include <vector>
 
 enum class hashType{
-	DIV,
-	MULT,
+	DIV, //division method
+	MULT, //multiplication method
 };
 
 class hash{
@@ -24,9 +24,12 @@ private:
 	int hashFunction2(int key);
 	int hashFunction3(int key);
 	int hashFunction4(int key);
+	void rehash();	
+
 	std::vector<std::vector<int> > table;
 	
-	hashType type;
+	
+	hashType type; //Specifies the method used to generate hash functions
 };
 
 #endif /* CUCKOO_H */

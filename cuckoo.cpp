@@ -1,8 +1,8 @@
-#include "hash.h"
+#include "cuckoo.h"
 
 #include <cstdio>
 
-hash::hash(hashType type, std::vector<int> tableSizes){
+cuckoo::cuckoo(hashType type, std::vector<int> tableSizes){
 	for(int i = 0; i < tableSizes.size(); i++){
 		std::vector<int> row;
 		for(int j = 0; j < tableSizes[i]; j++){
@@ -13,7 +13,7 @@ hash::hash(hashType type, std::vector<int> tableSizes){
 	this->type = type;
 }
 
-int hash::hashFunction0(int key){
+int cuckoo::hashFunction0(int key){
 	if(type == hashType::DIV){
 		return key%table[0].size();
 	} else if(type == hashType::MULT){
@@ -21,7 +21,7 @@ int hash::hashFunction0(int key){
 	}
 }
 	
-int hash::hashFunction1(int key){
+int cuckoo::hashFunction1(int key){
 	if(type == hashType::DIV){
 		return key%table[1].size();
 	} else if(type == hashType::MULT){
@@ -29,7 +29,7 @@ int hash::hashFunction1(int key){
 	}
 }
 
-int hash::hashFunction2(int key){
+int cuckoo::hashFunction2(int key){
 	if(type == hashType::DIV){
 		return key%table[2].size();
 	} else if(type == hashType::MULT){
@@ -37,7 +37,7 @@ int hash::hashFunction2(int key){
 	}
 }
 
-int hash::hashFunction3(int key){
+int cuckoo::hashFunction3(int key){
 	if(type == hashType::DIV){
 		return key%table[3].size();
 	} else if(type == hashType::MULT){
@@ -45,7 +45,7 @@ int hash::hashFunction3(int key){
 	}
 }
 
-int hash::hashFunction4(int key){
+int cuckoo::hashFunction4(int key){
 	if(type == hashType::DIV){
 		return key%table[4].size();
 	} else if(type == hashType::MULT){
@@ -53,7 +53,7 @@ int hash::hashFunction4(int key){
 	} 
 }
 
-void hash::insert(int key){
+void cuckoo::insert(int key){
 	int numMoves = 0;
 	bool placed = false;
 	while(!placed && numMoves < 50){
@@ -95,7 +95,7 @@ void hash::insert(int key){
 	}
 }
 	
-void hash::remove(int key){
+void cuckoo::remove(int key){
 	for(int i = 0; i < table.size(); i++){
 		int index;
 		switch(i){
@@ -121,7 +121,7 @@ void hash::remove(int key){
 	}
 }
 	
-bool hash::search(int key){
+bool cuckoo::search(int key){
 	for(int i = 0; i < table.size(); i++){
 		int index;
 		switch(i){
@@ -147,7 +147,7 @@ bool hash::search(int key){
 	}	return false;
 }
 
-void hash::rehash(){
+void cuckoo::rehash(){
 	std::vector<int> tempVals; //temporary storage for keys so none are lost
 	int origSize; //Size of original table used for resizing
 
@@ -185,7 +185,7 @@ void hash::rehash(){
 
 }
 
-void hash::print(){
+void cuckoo::print(){
 	for(int i = 0; i < table.size(); i++){
 		for(int j = 0; j < table[i].size(); j++){
 			printf("%5d",table[i][j]);

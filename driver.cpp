@@ -1,4 +1,4 @@
-#include "hash.h"
+#include "cuckoo.h"
 
 #include <cstdlib>
 #include <iostream>
@@ -8,7 +8,7 @@
 #include <ctime>
 #include <chrono>
 
-bool debug = true;
+bool debug = false;
 
 int main(int argc, char* argv[]) {
 	if (argc != 3) {
@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
 		input >> tempString;
 		tableSizes.push_back(std::stoi(tempString));
 	}
-	hash cuckoo(hashType::DIV, tableSizes);
+	cuckoo hashTable(hashType::DIV, tableSizes);
 	if (debug) std::cout << "Hash table built" << std::endl;
 
 	//Executing operations
@@ -47,21 +47,21 @@ int main(int argc, char* argv[]) {
 		std::cout << tempString << std::endl;
 		if(tempString == "insert") {
 			input >> tempString;
-			cuckoo.insert(std::stoi(tempString));
+			hashTable.insert(std::stoi(tempString));
 			if (debug) std::cout << "insert " << std::stoi(tempString) << std::endl;
 		}
 		else if (tempString == "search") {
 			input >> tempString;
-			cuckoo.search(std::stoi(tempString));
+			hashTable.search(std::stoi(tempString));
 			if (debug) std::cout << "search " << std::stoi(tempString) << std::endl;
 		}
 		else if (tempString == "remove") {
 			input >> tempString;
-			cuckoo.remove(std::stoi(tempString));
+			hashTable.remove(std::stoi(tempString));
 			if (debug) std::cout << "remove " << std::stoi(tempString) << std::endl;
 		}
 		else if (tempString == "print") {
-			cuckoo.print();
+			hashTable.print();
 			if (debug) std::cout << "print" << std::endl;
 		}
 		else {

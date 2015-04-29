@@ -8,9 +8,9 @@ enum class hashType{
 	MULT, //multiplication method
 };
 
-class hash{
+class cuckoo{
 public:
-	hash(hashType type, std::vector<int> tableSizes);	
+	cuckoo(hashType type, std::vector<int> tableSizes);
 
 	void insert(int key);
 	void remove(int key);

@@ -151,8 +151,17 @@ void hash::rehash(){
 	std::vector<int> tempVals; //temporary storage for keys so none are lost
 	int origSize; //Size of original table used for resizing
 
+	/*Save values*/
+	for(int x = 0; x < table.size(); x++){
+		for(int y = 0; y < table[x].size(); y++){
+			if(table[x][y] != -1){
+				tempVals.push_back(table[x][y]);
+			}
+		} 
+	}
+
+	/*Resize tables and generate different hash functions*/
 	for(int i = 0; i < table.size(); i++){
-		tempVals = table[i]; //Save values of original table
 		origSize = table[i].size(); //Save original table size
 		
 		if(type == hashType::DIV){ //DIV - clear/resize table and re-insert values
@@ -164,9 +173,6 @@ void hash::rehash(){
 				table[i].push_back(-1); //Mark every cell as vacant with -1
 			}
 
-			for(int j = 0; j < tempVals.size(); j++){
-				insert(tempVals[j]); //reinsert all of the values originally in the table				
-			}
 			
 		} else if(type == hashType::MULT){
 			/* h(k) = floor(m(kA - floor(k*A)))...
@@ -179,6 +185,11 @@ void hash::rehash(){
 			*/ 
 		}
 	
+	}
+
+	/*Insert old values into new tables*/
+	for(int j = 0; j < tempVals.size(); j++){
+		insert(tempVals[j]); //reinsert all of the values originally in the table				
 	}
 
 	

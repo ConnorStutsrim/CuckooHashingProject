@@ -24,10 +24,12 @@ private:
 	int hashFunction2(int key);
 	int hashFunction3(int key);
 	int hashFunction4(int key);
+
 	void rehash();	
+	float nextMultParameter();
 
 	std::vector<std::vector<int> > table;
-	
+	std::vector<float> parameters;	
 	
 	hashType type; //Specifies the method used to generate hash functions
 };

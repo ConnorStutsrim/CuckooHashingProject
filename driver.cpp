@@ -11,9 +11,9 @@
 bool debug = true;
 
 int main(int argc, char* argv[]) {
-	if (argc != 3) {
+	if (argc != 4) {
 		std::cout << "Error: incorrect syntax" << std::endl;
-		std::cout << "cuckoo <input> <output>" << std::endl;
+		std::cout << "cuckoo <input> <output> <hash-type>" << std::endl;
 		exit(0);
 	}
 	
@@ -24,6 +24,16 @@ int main(int argc, char* argv[]) {
 	output.open(argv[2]);
 	if (!input || !output) {
 		std::cout << "Error: One of the specified files does not exist" << std::endl;
+		exit(0);
+	}
+
+	hashType type;
+	if(argv[3][0] == 'D'){
+		type = hashType::DIV;
+	} else if(argv[3][0] == 'M'){
+		type = hashType::MULT;
+	} else {
+		std::cout << "Please enter only a valid hashing type" << std::endl;
 		exit(0);
 	}
 	
@@ -39,7 +49,7 @@ int main(int argc, char* argv[]) {
 		input >> tempString;
 		tableSizes.push_back(std::stoi(tempString));
 	}
-	hash cuckoo(hashType::DIV, tableSizes);
+	hash cuckoo(type, tableSizes);
 	if (debug) std::cout << "Hash table built" << std::endl;
 
 	//Executing operations

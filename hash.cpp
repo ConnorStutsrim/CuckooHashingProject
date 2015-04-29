@@ -1,14 +1,21 @@
 #include "hash.h"
 
+#include <ctime>
 #include <cstdio>
+#include <cmath>
+#include <cstdlib>
 
 hash::hash(hashType type, std::vector<int> tableSizes){
+	srand(time(NULL));
 	for(int i = 0; i < tableSizes.size(); i++){
 		std::vector<int> row;
 		for(int j = 0; j < tableSizes[i]; j++){
 			row.push_back(-1);
 		}
 		table.push_back(row);
+		if(type == hashType::MULT){
+			parameters.push_back(nextMultParameter());
+		}
 	}
 	this->type = type;
 }
@@ -17,7 +24,7 @@ int hash::hashFunction0(int key){
 	if(type == hashType::DIV){
 		return key%table[0].size();
 	} else if(type == hashType::MULT){
-
+		return floor(table[0].size()*(key*parameters[0] - floor(key*parameters[0])));
 	}
 }
 	
@@ -25,7 +32,7 @@ int hash::hashFunction1(int key){
 	if(type == hashType::DIV){
 		return key%table[1].size();
 	} else if(type == hashType::MULT){
-
+		return floor(table[1].size()*(key*parameters[1] - floor(key*parameters[1])));
 	}
 }
 
@@ -33,7 +40,7 @@ int hash::hashFunction2(int key){
 	if(type == hashType::DIV){
 		return key%table[2].size();
 	} else if(type == hashType::MULT){
-
+		return floor(table[2].size()*(key*parameters[2] - floor(key*parameters[2])));
 	}
 }
 
@@ -41,7 +48,7 @@ int hash::hashFunction3(int key){
 	if(type == hashType::DIV){
 		return key%table[3].size();
 	} else if(type == hashType::MULT){
-
+		return floor(table[3].size()*(key*parameters[3] - floor(key*parameters[3])));
 	}
 }
 
@@ -49,7 +56,7 @@ int hash::hashFunction4(int key){
 	if(type == hashType::DIV){
 		return key%table[4].size();
 	} else if(type == hashType::MULT){
-
+		return floor(table[4].size()*(key*parameters[4] - floor(key*parameters[4])));
 	} 
 }
 
@@ -182,6 +189,17 @@ void hash::rehash(){
 				a. pick a different constant A' where A'!=A and 0 < A' < 1
 				b. resize the table, thus changing the m we multiply by
 				c. both of the above
+
+				HIJACKED COMMENT BELOW
+		
+				1)
+						for creation of tables with MULT hashing the constructor
+						needs 5 floats too so if you used the function below 
+						'nextMultParameter' to pick a float then both should work
+						it's not actually a sophisticated algorithm though
+				2)
+						the float vector to fill is called parameters, its size is the 
+						same size as the table
 			*/ 
 		}
 	
@@ -194,6 +212,14 @@ void hash::rehash(){
 
 	
 
+}
+
+float hash::nextMultParameter(){
+	float inRange = static_cast<float>(rand()) / static_cast<float>((RAND_MAX));
+	while(inRange == 0.0f || inRange == 1.0f){
+		inRange = static_cast<float>(rand()) / static_cast<float>((RAND_MAX));
+	}
+	return inRange; 
 }
 
 void hash::print(){

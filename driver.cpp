@@ -5,6 +5,10 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <ctime>
+#include <chrono>
+
+bool debug = true;
 
 int main(int argc, char* argv[]) {
 	if (argc != 3) {
@@ -23,6 +27,9 @@ int main(int argc, char* argv[]) {
 		exit(0);
 	}
 	
+	std::chrono::time_point<std::chrono::system_clock> startTime, endTime;
+	startTime = std::chrono::system_clock::now();
+
 	//Building the hash table
 	std::vector<int> tableSizes;
 	std::string tempString;
@@ -30,11 +37,10 @@ int main(int argc, char* argv[]) {
 	int tableNumber = std::stoi(tempString);
 	for (int i = 0; i < tableNumber; i++) {
 		input >> tempString;
-		int size = std::stoi(tempString);
-		tableSizes.push_back(size);
+		tableSizes.push_back(std::stoi(tempString));
 	}
 	hash cuckoo(hashType::DIV, tableSizes);
-	std::cout << "Hash table built" << std::endl;
+	if (debug) std::cout << "Hash table built" << std::endl;
 
 	//Executing operations
 	while(input >> tempString) {
@@ -42,17 +48,21 @@ int main(int argc, char* argv[]) {
 		if(tempString == "insert") {
 			input >> tempString;
 			cuckoo.insert(std::stoi(tempString));
+			if (debug) std::cout << "insert " << std::stoi(tempString) << std::endl;
 		}
 		else if (tempString == "search") {
 			input >> tempString;
 			cuckoo.search(std::stoi(tempString));
+			if (debug) std::cout << "search " << std::stoi(tempString) << std::endl;
 		}
 		else if (tempString == "remove") {
 			input >> tempString;
 			cuckoo.remove(std::stoi(tempString));
+			if (debug) std::cout << "remove " << std::stoi(tempString) << std::endl;
 		}
 		else if (tempString == "print") {
 			cuckoo.print();
+			if (debug) std::cout << "print" << std::endl;
 		}
 		else {
 			std::cout << "Error: improper operation list" << std::endl;
@@ -62,5 +72,8 @@ int main(int argc, char* argv[]) {
 			std::cout << "print" << std::endl;
 		}
 	}
-return 0;
+	endTime = std::chrono::system_clock::now();
+	std::chrono::duration<double> elapsed = endTime - startTime;
+	std::cout << "Finished all operation in " << elapsed.count() << " seconds" << std::endl;
+	return 0;
 }

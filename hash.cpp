@@ -5,11 +5,19 @@
 #include <cmath>
 #include <cstdlib>
 
+//includes nextPrime function and a giant array of primes
+//algorithm can easy be optimized
+//doesn't deal with cases where not stored in prime table, would be slightly difficult to do
+//table size needed to cause problems could be tables > 5,000 elements with ease
+//really only necessary to fret over table sizes when using division anyway
+#include "helper.cpp"
+
 hash::hash(hashType type, std::vector<int> tableSizes){
 	srand(time(NULL));
 	for(int i = 0; i < tableSizes.size(); i++){
 		std::vector<int> row;
-		for(int j = 0; j < tableSizes[i]; j++){
+		int primeUpper = nextPrime(tableSizes[i]);
+		for(int j = 0; j < primeUpper; j++){
 			row.push_back(-1);
 		}
 		table.push_back(row);

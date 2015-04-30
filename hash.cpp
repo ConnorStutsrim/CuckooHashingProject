@@ -16,8 +16,8 @@ hash::hash(hashType type, std::vector<int> tableSizes){
 	srand(time(NULL));
 	for(int i = 0; i < tableSizes.size(); i++){
 		std::vector<int> row;
-		int primeUpper = nextPrime(tableSizes[i]);
-		for(int j = 0; j < primeUpper; j++){
+
+		for(int j = 0; j < tableSizes[i]; j++){
 			row.push_back(-1);
 		}
 		table.push_back(row);
@@ -71,7 +71,12 @@ int hash::hashFunction4(int key){
 void hash::insert(int key){
 	int numMoves = 0;
 	bool placed = false;
-	while(!placed && numMoves < 50){
+
+	if(search(key)){
+		return; //Does not allow duplicate input
+	}
+
+	while(!placed && numMoves < 50/*<-- Have the user set maxLoop in a function. Default should be 50*/){
 		int i = numMoves%table.size(); // specifies table column
 		int index; //specifies a table cell
 		switch(i){
@@ -209,6 +214,19 @@ void hash::rehash(){
 						the float vector to fill is called parameters, its size is the 
 						same size as the table
 			*/ 
+					
+			table[i].clear(); //clear the table for rehashing
+
+			//Double size
+			for(int n = 0; n < origSize * 2; n++){
+				table[i].push_back(-1); //Mark every cell as vacant with -1
+			}
+
+			//Repick each table's A
+			for(int k = 0; k < table.size(); k++){
+				parameters[k] = nextMultParameter();
+			}
+
 		}
 	
 	}

@@ -10,7 +10,7 @@ enum class hashType{
 
 class hash{
 public:
-	hash(hashType type, std::vector<int> tableSizes);	
+	hash(hashType type, std::vector<int> tableSizes, bool mode); //mode = true supports two tables of same size with DIV method	
 
 	void insert(int key);
 	void remove(int key);
@@ -31,6 +31,7 @@ private:
 	std::vector<std::vector<int> > table;
 	std::vector<float> parameters;	
 	
+	bool fiftyFifty; //Special flag for testing 2 DIV tables of the same size
 	hashType type; //Specifies the method used to generate hash functions
 };
 

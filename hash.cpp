@@ -4,6 +4,7 @@
 #include <cstdio>
 #include <cmath>
 #include <cstdlib>
+#include <iostream>
 
 //includes nextPrime function and a giant array of primes
 //algorithm can easy be optimized
@@ -12,8 +13,9 @@
 //really only necessary to fret over table sizes when using division anyway
 #include "helper.cpp"
 
-hash::hash(hashType type, std::vector<int> tableSizes){
+hash::hash(hashType type, std::vector<int> tableSizes, bool mode){
 	srand(time(NULL));
+	fiftyFifty = mode;
 	for(int i = 0; i < tableSizes.size(); i++){
 		std::vector<int> row;
 
@@ -38,7 +40,12 @@ int hash::hashFunction0(int key){
 	
 int hash::hashFunction1(int key){
 	if(type == hashType::DIV){
-		return key%table[1].size();
+		if(fiftyFifty){
+			std::cout << "USING FIFTY FIFTY" << std::endl;
+			return (int) floor(key/table[1].size()) % table[1].size();
+		} else{
+			return key%table[1].size();
+		}
 	} else if(type == hashType::MULT){
 		return floor(table[1].size()*(key*parameters[1] - floor(key*parameters[1])));
 	}

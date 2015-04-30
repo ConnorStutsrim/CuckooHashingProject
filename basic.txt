@@ -1,7 +1,6 @@
-3
+2
 5
-4
-7
+5
 insert 5
 insert 6
 insert 7

@@ -11,9 +11,9 @@
 bool debug = true;
 
 int main(int argc, char* argv[]) {
-	if (argc != 4) {
+	if (argc != 5) {
 		std::cout << "Error: incorrect syntax" << std::endl;
-		std::cout << "cuckoo <input> <output> <hash-type>" << std::endl;
+		std::cout << "cuckoo <input> <output> <hash-type> <50-50 Mode (true or false)>" << std::endl;
 		exit(0);
 	}
 	
@@ -49,7 +49,18 @@ int main(int argc, char* argv[]) {
 		input >> tempString;
 		tableSizes.push_back(std::stoi(tempString));
 	}
-	hash cuckoo(type, tableSizes);
+
+	bool option;
+	if(argv[4][0] == 'T')
+		option = true;
+	else if(argv[4][0] == 'F')
+		option = false;
+	else{
+		std::cout << "Invalid 50-50 mode option! 'T' to enable, 'F' to disable" << std::endl;
+		exit(1);
+	}
+	
+	hash cuckoo(type, tableSizes, option);
 	if (debug) std::cout << "Hash table built" << std::endl;
 
 	//Executing operations

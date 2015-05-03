@@ -6,19 +6,11 @@
 #include <cstdlib>
 #include <iostream>
 
-//includes nextPrime function and a giant array of primes
-//algorithm can easy be optimized
-//doesn't deal with cases where not stored in prime table, would be slightly difficult to do
-//table size needed to cause problems could be tables > 5,000 elements with ease
-//really only necessary to fret over table sizes when using division anyway
-#include "helper.cpp"
-
 hash::hash(hashType type, std::vector<int> tableSizes, bool mode){
 	srand(time(NULL));
 	fiftyFifty = mode;
 	for(int i = 0; i < tableSizes.size(); i++){
 		std::vector<int> row;
-
 		for(int j = 0; j < tableSizes[i]; j++){
 			row.push_back(-1);
 		}
@@ -216,7 +208,6 @@ void hash::rehash(){
 						for creation of tables with MULT hashing the constructor
 						needs 5 floats too so if you used the function below 
 						'nextMultParameter' to pick a float then both should work
-						it's not actually a sophisticated algorithm though
 				2)
 						the float vector to fill is called parameters, its size is the 
 						same size as the table
@@ -255,6 +246,7 @@ float hash::nextMultParameter(){
 	return inRange; 
 }
 
+//will be ugly with numbers with 5+ decimal places
 void hash::print(){
 	for(int i = 0; i < table.size(); i++){
 		for(int j = 0; j < table[i].size(); j++){

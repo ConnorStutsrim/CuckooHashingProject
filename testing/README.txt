@@ -16,3 +16,7 @@ our method outperforms the special 50/50 method.
 
 The 6000 test cases were used to determine the effectiveness of
 changing the max loop size. 
+
+Any signifcantly sized test will not work with 1 table because
+the load factor will be so small no computer could allocate
+as much as the algorithm would need.

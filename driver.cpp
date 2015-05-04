@@ -20,9 +20,9 @@ int main(int argc, char* argv[]) {
 	//Setting up file I/O
 	std::ifstream input;
 	input.open(argv[1]);
-	std::ofstream output;
-	output.open(argv[2]);
-	if (!input || !output) {
+//	std::ofstream output;
+//	output.open(argv[2]);
+	if (!input ) {
 		std::cout << "Error: One of the specified files does not exist" << std::endl;
 		exit(0);
 	}

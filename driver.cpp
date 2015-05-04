@@ -8,7 +8,7 @@
 #include <ctime>
 #include <chrono>
 
-bool debug = true;
+bool debug = false;
 
 int main(int argc, char* argv[]) {
 	if (argc != 5) {
@@ -65,7 +65,6 @@ int main(int argc, char* argv[]) {
 
 	//Executing operations
 	while(input >> tempString) {
-		std::cout << tempString << std::endl;
 		if(tempString == "insert") {
 			input >> tempString;
 			cuckoo.insert(std::stoi(tempString));
@@ -74,7 +73,7 @@ int main(int argc, char* argv[]) {
 		else if (tempString == "search") {
 			input >> tempString;
 			cuckoo.search(std::stoi(tempString));
-			if (debug) std::cout << "search " << std::stoi(tempString) << std::endl;
+			//if (debug) std::cout << "search " << std::stoi(tempString) << std::endl;
 		}
 		else if (tempString == "remove") {
 			input >> tempString;

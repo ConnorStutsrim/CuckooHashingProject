@@ -33,7 +33,6 @@ int hash::hashFunction0(int key){
 int hash::hashFunction1(int key){
 	if(type == hashType::DIV){
 		if(fiftyFifty){
-			std::cout << "USING FIFTY FIFTY" << std::endl;
 			return (int) floor(key/table[1].size()) % table[1].size();
 		} else{
 			return key%table[1].size();

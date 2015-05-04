@@ -28,4 +28,5 @@ The format of prints makes it easier to comprehend output of larger examples
 by redirecting standard output to a file. As well, digit sizes for insert look 
 good up to 4 digit lengths because of the formatted output style.
 
+There testing directory contains a README itself detailing used test cases. 
 The code has some sparse documentation as well.

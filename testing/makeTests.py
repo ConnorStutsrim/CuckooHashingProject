@@ -6,11 +6,11 @@ def main():
 	r.seed()
 
 	#table size control
-	a = 7
-	b = 9
-	c = 11
-	d = 14
-	e = 16
+	a = 10
+	b = 10
+	c = 10
+	d = 10
+	e = 10
 	
 	with open("output.txt",'w' ) as f:
 		f.write("5\n")
@@ -27,8 +27,8 @@ def main():
 		s = set()
 
 		#change xrange to control # of inserts
-		for i in xrange(10*(a+b+c+d+e)):
-			a = r.randint(0,600)
+		for i in xrange(3000):
+			a = r.randint(0,9999) #if a repeat comes up then it is not given its own spot in the hash table
 			f.write("insert " + str(a) + "\n")			
 			s.add(a)
 
@@ -48,6 +48,11 @@ def main():
 
 		s = s - discarded
 
+		for i in xrange(3000):
+			a = r.randint(0,9999)
+			f.write("insert " + str(a) + "\n")
+			s.add(a)
+
 		#first for should result in finds, the next for should result in rejections
 		for i in s:
 			f.write("search " +  str(i) + "\n")
@@ -55,6 +60,5 @@ def main():
 		for i in discarded:
 			f.write("search " + str(i) + "\n")
 
-		f.write("print\n")
 
 main()

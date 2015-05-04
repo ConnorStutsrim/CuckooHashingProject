@@ -18,6 +18,8 @@ public:
 
 	void print();
 
+	int numInserted;
+
 private:
 	int hashFunction0(int key);
 	int hashFunction1(int key);

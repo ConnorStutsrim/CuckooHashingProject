@@ -15,8 +15,8 @@ we've used to create tests which is present in the testing directory. Additional
 there are sample test files we've used for testing as well.
 
 However, if the final command line argument is set to T then the program 
-creates a 50 - 50 table split regardless. Most of the time this should be 
-set to F.
+expects a 50/50 table and will use a special algorithm design for the first and second
+table.
 
 The D or M argument indicates what method hashing should be used. D indicates
 using the division method while M indicates to use the multiplication method.

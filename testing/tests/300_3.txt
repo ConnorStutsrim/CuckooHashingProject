@@ -1,5 +1,5 @@
 3
-10 10 10
+16 17 17
 insert 86
 insert 274
 insert 63

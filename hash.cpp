@@ -20,6 +20,7 @@ hash::hash(hashType type, std::vector<int> tableSizes, bool mode){
 		}
 	}
 	this->type = type;
+	numInserted = 0;
 }
 
 int hash::hashFunction0(int key){
@@ -95,6 +96,7 @@ void hash::insert(int key){
 			break;
 		}
 		if(table[i][index] == -1){ //spot 
+			numInserted++;
 			table[i][index] = key;
 			placed = true;
 		}
@@ -134,6 +136,7 @@ void hash::remove(int key){
 			break;
 		}
 		if(table[i][index] == key){
+			numInserted--;
 			table[i][index] = -1;
 		}
 	}
@@ -168,6 +171,14 @@ bool hash::search(int key){
 void hash::rehash(){
 	std::vector<int> tempVals; //temporary storage for keys so none are lost
 	int origSize; //Size of original table used for resizing
+
+	int tableSize = 0;
+	for(int i = 0; i < table.size(); i++){
+		tableSize += table[i].size();
+	}
+	float loadFactor = (float)numInserted/(float)tableSize;
+	printf("load factor at rehash = %f\n", loadFactor);
+	numInserted = 0; //this function will call insert over again for each element so need to reset
 
 	/*Save values*/
 	for(int x = 0; x < table.size(); x++){
